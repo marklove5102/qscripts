@@ -3,7 +3,7 @@
   "plugin": {
     "name": "QScripts",
     "version": "1.2.6",
-    "entryPoint": "qscripts64",
+    "entryPoint": "qscripts",
     "description": "Develop IDA scripts faster with hot-reload and automatic execution on file changes. Supports Python, IDC, and compiled plugins with dependency tracking.",
     "urls": {
       "repository": "https://github.com/allthingsida/qscripts"
