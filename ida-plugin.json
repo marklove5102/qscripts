@@ -1,0 +1,29 @@
+{
+  "IDAMetadataDescriptorVersion": 1,
+  "plugin": {
+    "name": "QScripts",
+    "version": "1.2.6",
+    "entryPoint": "qscripts64",
+    "description": "Develop IDA scripts faster with hot-reload and automatic execution on file changes. Supports Python, IDC, and compiled plugins with dependency tracking.",
+    "urls": {
+      "repository": "https://github.com/allthingsida/qscripts"
+    },
+    "authors": [
+      {
+        "name": "Elias Bachaalany",
+        "email": "elias.bachaalany@gmail.com"
+      }
+    ],
+    "categories": [
+      "api-scripting-and-automation",
+      "collaboration-and-productivity"
+    ],
+    "idaVersions": ">=9.0",
+    "platforms": [
+      "windows-x86_64",
+      "linux-x86_64",
+      "macos-aarch64"
+    ],
+    "license": "MIT"
+  }
+}
