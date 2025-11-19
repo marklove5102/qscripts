@@ -8,8 +8,27 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include($ENV{IDASDK}/ida-cmake/bootstrap.cmake)
 find_package(idasdk REQUIRED)
 
-# Add idacpp library
-add_subdirectory($ENV{IDASDK}/include/idacpp ${CMAKE_CURRENT_BINARY_DIR}/idacpp)
+# Add idacpp library with fallback
+# First, try to use idacpp from IDASDK
+set(IDACPP_SDK_PATH "$ENV{IDASDK}/include/idacpp")
+set(IDACPP_LOCAL_PATH "${CMAKE_CURRENT_BINARY_DIR}/idacpp")
+
+if(EXISTS "${IDACPP_SDK_PATH}/CMakeLists.txt")
+    message(STATUS "Using idacpp from IDASDK: ${IDACPP_SDK_PATH}")
+    add_subdirectory(${IDACPP_SDK_PATH} ${CMAKE_CURRENT_BINARY_DIR}/idacpp)
+else()
+    message(STATUS "idacpp not found in IDASDK, fetching to build directory...")
+
+    # Use FetchContent to download idacpp into build directory
+    include(FetchContent)
+    FetchContent_Declare(
+        idacpp
+        GIT_REPOSITORY https://github.com/allthingsida/idacpp.git
+        GIT_TAG main
+        SOURCE_DIR ${IDACPP_LOCAL_PATH}
+    )
+    FetchContent_MakeAvailable(idacpp)
+endif()
 
 # Convert paths to native format
 set(SAMPLE_IDB "${IDA_CMAKE_DIR}/samples/wizmo32.exe.i64")

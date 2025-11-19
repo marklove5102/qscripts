@@ -9,12 +9,6 @@ if not defined IDASDK (
     goto :eof
 )
 
-if not exist %IDASDK%\include\idax\xkernwin.hpp (
-    echo IDAX framework not properly installed in the IDA SDK folder.
-    echo See: https://github.com/ida-cmake/idax
-    goto :eof
-)
-
 if not exist %IDASDK%\ida-cmake\idasdkConfig.cmake (
     echo ida-cmake not properly installed in the IDA SDK folder.
     echo See: https://github.com/allthingsida/ida-cmake

@@ -10,8 +10,8 @@ QScripts is an IDA Pro plugin that enables automatic script execution upon file 
 
 ### Prerequisites
 - **IDASDK**: Environment variable must be set to IDA SDK path
-- **IDAX**: Must be installed at `$IDASDK/include/idax/`
 - **ida-cmake**: Must be installed at `$IDASDK/ida-cmake/`
+- **idacpp**: Optional - will be automatically fetched if not found at `$IDASDK/include/idacpp/`
 
 ### Build with ida-cmake agent
 Always use the ida-cmake agent for building:
@@ -84,8 +84,27 @@ Scripts can be in three states:
 
 ## Important Implementation Notes
 
-- Plugin uses IDAX framework for enhanced UI capabilities
+- Plugin uses idacpp wrapper library for enhanced C++ API
 - Shares script list with IDA's built-in "Recent Scripts" (Alt-F9)
 - Maximum 512 scripts in list (IDA_MAX_RECENT_SCRIPTS)
 - Special unload function: `__quick_unload_script` called before reload
 - Supports undo via IDA's undo system when enabled in options
+
+## CI/CD and Releases
+
+### Automated Builds
+- GitHub Actions builds for Linux (.so), macOS (.dylib), and Windows (.dll)
+- Runs on every push and pull request
+- CMake automatically fetches idacpp if not available in IDASDK
+
+### Creating Releases
+To create a new release with pre-built binaries:
+```bash
+git tag v1.0.0              # Create version tag
+git push origin v1.0.0      # Push tag to trigger release
+```
+This will automatically:
+1. Build qscripts for all 3 platforms
+2. Create a GitHub Release page
+3. Upload all platform binaries (.dll, .so, .dylib)
+4. Generate release notes from commits
