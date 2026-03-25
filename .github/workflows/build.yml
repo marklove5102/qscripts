@@ -20,18 +20,13 @@ jobs:
     name: Build for Linux
     runs-on: ubuntu-latest
     env:
-      IDASDK: ${{ github.workspace }}/ida-sdk/src
+      IDASDK: ${{ github.workspace }}/ida-sdk
     steps:
       - name: Checkout project
         uses: actions/checkout@v4
 
-      - name: Prepare IDA SDK and helpers
-        shell: bash
-        run: |
-          set -euxo pipefail
-          git clone --depth 1 https://github.com/HexRaysSA/ida-sdk ida-sdk
-          mkdir -p "${IDASDK}"
-          git clone --depth 1 https://github.com/allthingsida/ida-cmake "${IDASDK}/ida-cmake"
+      - name: Prepare IDA SDK
+        run: git clone --depth 1 https://github.com/HexRaysSA/ida-sdk ida-sdk
 
       - name: Configure (Linux)
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
@@ -43,24 +38,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: qscripts-linux
-          path: ${{ env.IDASDK }}/bin/plugins/qscripts.so
+          path: ${{ env.IDASDK }}/src/bin/plugins/qscripts.so
 
   build-macos:
     name: Build for macOS
     runs-on: macos-latest
     env:
-      IDASDK: ${{ github.workspace }}/ida-sdk/src
+      IDASDK: ${{ github.workspace }}/ida-sdk
     steps:
       - name: Checkout project
         uses: actions/checkout@v4
 
-      - name: Prepare IDA SDK and helpers
-        shell: bash
-        run: |
-          set -euxo pipefail
-          git clone --depth 1 https://github.com/HexRaysSA/ida-sdk ida-sdk
-          mkdir -p "${IDASDK}"
-          git clone --depth 1 https://github.com/allthingsida/ida-cmake "${IDASDK}/ida-cmake"
+      - name: Prepare IDA SDK
+        run: git clone --depth 1 https://github.com/HexRaysSA/ida-sdk ida-sdk
 
       - name: Configure (macOS)
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
@@ -72,24 +62,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: qscripts-macos
-          path: ${{ env.IDASDK }}/bin/plugins/qscripts.dylib
+          path: ${{ env.IDASDK }}/src/bin/plugins/qscripts.dylib
 
   build-windows:
     name: Build for Windows
     runs-on: windows-latest
     env:
-      IDASDK: ${{ github.workspace }}/ida-sdk/src
+      IDASDK: ${{ github.workspace }}/ida-sdk
     steps:
       - name: Checkout project
         uses: actions/checkout@v4
 
-      - name: Prepare IDA SDK and helpers
-        shell: bash
-        run: |
-          set -euxo pipefail
-          git clone --depth 1 https://github.com/HexRaysSA/ida-sdk ida-sdk
-          mkdir -p "${IDASDK}"
-          git clone --depth 1 https://github.com/allthingsida/ida-cmake "${IDASDK}/ida-cmake"
+      - name: Prepare IDA SDK
+        run: git clone --depth 1 https://github.com/HexRaysSA/ida-sdk ida-sdk
 
       - name: Configure (Windows)
         run: cmake -S . -B build -A x64
@@ -101,7 +86,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: qscripts-windows
-          path: ${{ env.IDASDK }}/bin/plugins/qscripts.dll
+          path: ${{ env.IDASDK }}/src/bin/plugins/qscripts.dll
 
   publish-release:
     name: Publish Release
