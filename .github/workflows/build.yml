@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Prepare IDA SDK
-        run: git clone --depth 1 https://github.com/HexRaysSA/ida-sdk ida-sdk
+        run: git clone --depth 1 --recurse-submodules https://github.com/HexRaysSA/ida-sdk ida-sdk
 
       - name: Configure (Linux)
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
@@ -50,7 +50,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Prepare IDA SDK
-        run: git clone --depth 1 https://github.com/HexRaysSA/ida-sdk ida-sdk
+        run: git clone --depth 1 --recurse-submodules https://github.com/HexRaysSA/ida-sdk ida-sdk
 
       - name: Configure (macOS)
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
@@ -74,7 +74,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Prepare IDA SDK
-        run: git clone --depth 1 https://github.com/HexRaysSA/ida-sdk ida-sdk
+        run: git clone --depth 1 --recurse-submodules https://github.com/HexRaysSA/ida-sdk ida-sdk
 
       - name: Configure (Windows)
         run: cmake -S . -B build -A x64
