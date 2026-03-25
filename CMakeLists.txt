@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Include IDA SDK bootstrap
-include($ENV{IDASDK}/ida-cmake/bootstrap.cmake)
+include($ENV{IDASDK}/src/cmake/bootstrap.cmake)
 find_package(idasdk REQUIRED)
 
 # Add idacpp library with fallback
@@ -21,10 +21,11 @@ else()
     message(STATUS "idacpp not found in IDASDK, fetching to build directory...")
 
     # Use FetchContent to download idacpp into build directory
+    # NOTE: The header-only idacpp wrapper is in the allthingsida/libidacpp repo
     include(FetchContent)
     FetchContent_Declare(
         idacpp
-        GIT_REPOSITORY https://github.com/allthingsida/idacpp.git
+        GIT_REPOSITORY https://github.com/allthingsida/libidacpp.git
         GIT_TAG main
         SOURCE_DIR ${IDACPP_LOCAL_PATH}
     )

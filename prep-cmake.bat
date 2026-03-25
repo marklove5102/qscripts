@@ -9,9 +9,8 @@ if not defined IDASDK (
     goto :eof
 )
 
-if not exist %IDASDK%\ida-cmake\idasdkConfig.cmake (
-    echo ida-cmake not properly installed in the IDA SDK folder.
-    echo See: https://github.com/allthingsida/ida-cmake
+if not exist %IDASDK%\src\cmake\bootstrap.cmake (
+    echo IDA SDK cmake not found at %IDASDK%\src\cmake\bootstrap.cmake
     goto :eof
 )
 
@@ -20,7 +19,7 @@ if "%1"=="clean" (
     goto :eof
 )
 
-if not exist build cmake -B build -S . -A x64 -DEA64=YES
+if not exist build cmake -B build -S . -A x64
 
 if "%1"=="build" cmake --build build --config Release
 
